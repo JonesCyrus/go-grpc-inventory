@@ -1,1 +1,1 @@
-# go-grpc-api
+# go-grpc-inventory

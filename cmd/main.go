@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
-	"go-grpc-api/pkg/config"
+	"go-grpc-inventory/pkg/config"
+	"go-grpc-inventory/pkg/pb"
+	"go-grpc-inventory/pkg/services"
 	"log"
 	"net"
 
@@ -19,13 +21,15 @@ func getPort(vi *viper.Viper) string {
 	return port
 }
 
-func startServer(port string) (*grpc.Server, net.Listener, error) {
+func startServer(svc *services.InventoryService, port string) (*grpc.Server, net.Listener, error) {
 	lis, err := net.Listen("tcp", ":"+port)
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to listen: %w", err)
 	}
 
 	grpcServer := grpc.NewServer()
+
+	pb.RegisterInventoryProtoServiceServer(grpcServer, svc)
 
 	return grpcServer, lis, nil
 }
@@ -35,7 +39,9 @@ func main() {
 
 	port := getPort(vi)
 
-	grpcServer, lis, err := startServer(port)
+	svc := services.NewInventoryService()
+
+	grpcServer, lis, err := startServer(svc, port)
 	if err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}

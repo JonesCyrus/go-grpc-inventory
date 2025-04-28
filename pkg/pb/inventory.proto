@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package inventory;
+option go_package = "./pkg/pb";
+
+service InventoryProtoService {
+    rpc findRecords (EmptyRequest) returns (FindRecordsResponse) {}
+}
+
+message EmptyRequest {}
+
+message FindRecordsRequest {
+    string query = 1;
+    int32 limit = 2;
+}
+
+message InventoryResponse {
+    string name = 1;
+    string description = 2;
+}
+
+message FindRecordsResponse {
+    repeated InventoryResponse records = 1;
+}

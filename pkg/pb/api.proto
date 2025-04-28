@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package api;
+option go_package = "./pkg/pb";
+
+service ApiService {
+    rpc findRecords (FindRecordsRequest) returns (FindRecordsResponse) {}
+}
+
+message FindRecordsRequest {
+    string query = 1;
+    int32 limit = 2;
+}
+
+message Response {
+    string name = 1;
+    string descroption = 2;
+}
+
+message FindRecordsResponse {
+    repeated Response records = 1;
+}
+

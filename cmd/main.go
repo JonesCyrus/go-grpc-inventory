@@ -10,6 +10,7 @@ import (
 
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
+	"gorm.io/gorm"
 )
 
 func getPort(vi *viper.Viper) string {
@@ -34,12 +35,30 @@ func startServer(svc *services.InventoryService, port string) (*grpc.Server, net
 	return grpcServer, lis, nil
 }
 
+func initDatabase(vi *viper.Viper) (*gorm.DB, error) {
+	db, err := config.InitDatabase(vi)
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect to database: %w", err)
+	}
+
+	return db, nil
+}
+
 func main() {
 	vi := config.InitEnv()
 
 	port := getPort(vi)
 
-	svc := services.NewInventoryService()
+	fmt.Println("Initializing database...")
+	dbHandler, err := initDatabase(vi)
+	if err != nil {
+		log.Fatalf("Failed to initialize database: %v", err)
+	}
+
+	fmt.Println("Migrating models...")
+	config.MigrateDatabase(dbHandler)
+
+	svc := services.NewInventoryService(dbHandler)
 
 	grpcServer, lis, err := startServer(svc, port)
 	if err != nil {

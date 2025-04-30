@@ -4,21 +4,43 @@ package inventory;
 option go_package = "./pkg/pb";
 
 service InventoryProtoService {
-    rpc findRecords (EmptyRequest) returns (FindRecordsResponse) {}
+    rpc FindRecords (EmptyRequest) returns (FindRecordsResponse);
+    rpc CreateInventory (CreateInventoryRequest) returns (EmptyResponse);
+    rpc GetInventoryList(PaginationRequest) returns (GetInventoryResponse);
 }
 
 message EmptyRequest {}
 
-message FindRecordsRequest {
-    string query = 1;
-    int32 limit = 2;
-}
+message EmptyResponse {}
 
 message InventoryResponse {
-    string name = 1;
-    string description = 2;
+    string id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message MetaData {
+    int64 totalRecords = 1;
+    int64 page = 2;
+    int64 size = 3;
 }
 
 message FindRecordsResponse {
     repeated InventoryResponse records = 1;
+}
+
+message GetInventoryResponse {
+    repeated InventoryResponse records = 1;
+    MetaData meta = 2;
+}
+
+message CreateInventoryRequest {
+    string name = 1;
+    string description = 2;
+}
+
+message PaginationRequest {
+    string search = 1;
+    int64 page = 2;
+    int64 size = 3;
 }

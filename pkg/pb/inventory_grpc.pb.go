@@ -19,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	InventoryProtoService_FindRecords_FullMethodName = "/inventory.InventoryProtoService/findRecords"
+	InventoryProtoService_FindRecords_FullMethodName      = "/inventory.InventoryProtoService/FindRecords"
+	InventoryProtoService_CreateInventory_FullMethodName  = "/inventory.InventoryProtoService/CreateInventory"
+	InventoryProtoService_GetInventoryList_FullMethodName = "/inventory.InventoryProtoService/GetInventoryList"
 )
 
 // InventoryProtoServiceClient is the client API for InventoryProtoService service.
@@ -27,6 +29,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type InventoryProtoServiceClient interface {
 	FindRecords(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*FindRecordsResponse, error)
+	CreateInventory(ctx context.Context, in *CreateInventoryRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
+	GetInventoryList(ctx context.Context, in *PaginationRequest, opts ...grpc.CallOption) (*GetInventoryResponse, error)
 }
 
 type inventoryProtoServiceClient struct {
@@ -47,11 +51,33 @@ func (c *inventoryProtoServiceClient) FindRecords(ctx context.Context, in *Empty
 	return out, nil
 }
 
+func (c *inventoryProtoServiceClient) CreateInventory(ctx context.Context, in *CreateInventoryRequest, opts ...grpc.CallOption) (*EmptyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmptyResponse)
+	err := c.cc.Invoke(ctx, InventoryProtoService_CreateInventory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *inventoryProtoServiceClient) GetInventoryList(ctx context.Context, in *PaginationRequest, opts ...grpc.CallOption) (*GetInventoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetInventoryResponse)
+	err := c.cc.Invoke(ctx, InventoryProtoService_GetInventoryList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InventoryProtoServiceServer is the server API for InventoryProtoService service.
 // All implementations must embed UnimplementedInventoryProtoServiceServer
 // for forward compatibility.
 type InventoryProtoServiceServer interface {
 	FindRecords(context.Context, *EmptyRequest) (*FindRecordsResponse, error)
+	CreateInventory(context.Context, *CreateInventoryRequest) (*EmptyResponse, error)
+	GetInventoryList(context.Context, *PaginationRequest) (*GetInventoryResponse, error)
 	mustEmbedUnimplementedInventoryProtoServiceServer()
 }
 
@@ -64,6 +90,12 @@ type UnimplementedInventoryProtoServiceServer struct{}
 
 func (UnimplementedInventoryProtoServiceServer) FindRecords(context.Context, *EmptyRequest) (*FindRecordsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindRecords not implemented")
+}
+func (UnimplementedInventoryProtoServiceServer) CreateInventory(context.Context, *CreateInventoryRequest) (*EmptyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateInventory not implemented")
+}
+func (UnimplementedInventoryProtoServiceServer) GetInventoryList(context.Context, *PaginationRequest) (*GetInventoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInventoryList not implemented")
 }
 func (UnimplementedInventoryProtoServiceServer) mustEmbedUnimplementedInventoryProtoServiceServer() {}
 func (UnimplementedInventoryProtoServiceServer) testEmbeddedByValue()                               {}
@@ -104,6 +136,42 @@ func _InventoryProtoService_FindRecords_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InventoryProtoService_CreateInventory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateInventoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InventoryProtoServiceServer).CreateInventory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InventoryProtoService_CreateInventory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InventoryProtoServiceServer).CreateInventory(ctx, req.(*CreateInventoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InventoryProtoService_GetInventoryList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PaginationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InventoryProtoServiceServer).GetInventoryList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InventoryProtoService_GetInventoryList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InventoryProtoServiceServer).GetInventoryList(ctx, req.(*PaginationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InventoryProtoService_ServiceDesc is the grpc.ServiceDesc for InventoryProtoService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -112,8 +180,16 @@ var InventoryProtoService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*InventoryProtoServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "findRecords",
+			MethodName: "FindRecords",
 			Handler:    _InventoryProtoService_FindRecords_Handler,
+		},
+		{
+			MethodName: "CreateInventory",
+			Handler:    _InventoryProtoService_CreateInventory_Handler,
+		},
+		{
+			MethodName: "GetInventoryList",
+			Handler:    _InventoryProtoService_GetInventoryList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -57,28 +57,26 @@ func (*EmptyRequest) Descriptor() ([]byte, []int) {
 	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{0}
 }
 
-type FindRecordsRequest struct {
+type EmptyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
-	Limit         int32                  `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *FindRecordsRequest) Reset() {
-	*x = FindRecordsRequest{}
+func (x *EmptyResponse) Reset() {
+	*x = EmptyResponse{}
 	mi := &file_pkg_pb_inventory_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *FindRecordsRequest) String() string {
+func (x *EmptyResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FindRecordsRequest) ProtoMessage() {}
+func (*EmptyResponse) ProtoMessage() {}
 
-func (x *FindRecordsRequest) ProtoReflect() protoreflect.Message {
+func (x *EmptyResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_pkg_pb_inventory_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -90,29 +88,16 @@ func (x *FindRecordsRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FindRecordsRequest.ProtoReflect.Descriptor instead.
-func (*FindRecordsRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use EmptyResponse.ProtoReflect.Descriptor instead.
+func (*EmptyResponse) Descriptor() ([]byte, []int) {
 	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *FindRecordsRequest) GetQuery() string {
-	if x != nil {
-		return x.Query
-	}
-	return ""
-}
-
-func (x *FindRecordsRequest) GetLimit() int32 {
-	if x != nil {
-		return x.Limit
-	}
-	return 0
 }
 
 type InventoryResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -147,6 +132,13 @@ func (*InventoryResponse) Descriptor() ([]byte, []int) {
 	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{2}
 }
 
+func (x *InventoryResponse) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
 func (x *InventoryResponse) GetName() string {
 	if x != nil {
 		return x.Name
@@ -161,6 +153,66 @@ func (x *InventoryResponse) GetDescription() string {
 	return ""
 }
 
+type MetaData struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TotalRecords  int64                  `protobuf:"varint,1,opt,name=totalRecords,proto3" json:"totalRecords,omitempty"`
+	Page          int64                  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	Size          int64                  `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MetaData) Reset() {
+	*x = MetaData{}
+	mi := &file_pkg_pb_inventory_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MetaData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MetaData) ProtoMessage() {}
+
+func (x *MetaData) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_inventory_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MetaData.ProtoReflect.Descriptor instead.
+func (*MetaData) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *MetaData) GetTotalRecords() int64 {
+	if x != nil {
+		return x.TotalRecords
+	}
+	return 0
+}
+
+func (x *MetaData) GetPage() int64 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *MetaData) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
 type FindRecordsResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Records       []*InventoryResponse   `protobuf:"bytes,1,rep,name=records,proto3" json:"records,omitempty"`
@@ -170,7 +222,7 @@ type FindRecordsResponse struct {
 
 func (x *FindRecordsResponse) Reset() {
 	*x = FindRecordsResponse{}
-	mi := &file_pkg_pb_inventory_proto_msgTypes[3]
+	mi := &file_pkg_pb_inventory_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -182,7 +234,7 @@ func (x *FindRecordsResponse) String() string {
 func (*FindRecordsResponse) ProtoMessage() {}
 
 func (x *FindRecordsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_pkg_pb_inventory_proto_msgTypes[3]
+	mi := &file_pkg_pb_inventory_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -195,7 +247,7 @@ func (x *FindRecordsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FindRecordsResponse.ProtoReflect.Descriptor instead.
 func (*FindRecordsResponse) Descriptor() ([]byte, []int) {
-	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{3}
+	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *FindRecordsResponse) GetRecords() []*InventoryResponse {
@@ -205,22 +257,201 @@ func (x *FindRecordsResponse) GetRecords() []*InventoryResponse {
 	return nil
 }
 
+type GetInventoryResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Records       []*InventoryResponse   `protobuf:"bytes,1,rep,name=records,proto3" json:"records,omitempty"`
+	Meta          *MetaData              `protobuf:"bytes,2,opt,name=meta,proto3" json:"meta,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetInventoryResponse) Reset() {
+	*x = GetInventoryResponse{}
+	mi := &file_pkg_pb_inventory_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetInventoryResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetInventoryResponse) ProtoMessage() {}
+
+func (x *GetInventoryResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_inventory_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetInventoryResponse.ProtoReflect.Descriptor instead.
+func (*GetInventoryResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetInventoryResponse) GetRecords() []*InventoryResponse {
+	if x != nil {
+		return x.Records
+	}
+	return nil
+}
+
+func (x *GetInventoryResponse) GetMeta() *MetaData {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+type CreateInventoryRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateInventoryRequest) Reset() {
+	*x = CreateInventoryRequest{}
+	mi := &file_pkg_pb_inventory_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateInventoryRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateInventoryRequest) ProtoMessage() {}
+
+func (x *CreateInventoryRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_inventory_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateInventoryRequest.ProtoReflect.Descriptor instead.
+func (*CreateInventoryRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *CreateInventoryRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CreateInventoryRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type PaginationRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Search        string                 `protobuf:"bytes,1,opt,name=search,proto3" json:"search,omitempty"`
+	Page          int64                  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	Size          int64                  `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PaginationRequest) Reset() {
+	*x = PaginationRequest{}
+	mi := &file_pkg_pb_inventory_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PaginationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PaginationRequest) ProtoMessage() {}
+
+func (x *PaginationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_inventory_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PaginationRequest.ProtoReflect.Descriptor instead.
+func (*PaginationRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_inventory_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *PaginationRequest) GetSearch() string {
+	if x != nil {
+		return x.Search
+	}
+	return ""
+}
+
+func (x *PaginationRequest) GetPage() int64 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *PaginationRequest) GetSize() int64 {
+	if x != nil {
+		return x.Size
+	}
+	return 0
+}
+
 var File_pkg_pb_inventory_proto protoreflect.FileDescriptor
 
 const file_pkg_pb_inventory_proto_rawDesc = "" +
 	"\n" +
 	"\x16pkg/pb/inventory.proto\x12\tinventory\"\x0e\n" +
-	"\fEmptyRequest\"@\n" +
-	"\x12FindRecordsRequest\x12\x14\n" +
-	"\x05query\x18\x01 \x01(\tR\x05query\x12\x14\n" +
-	"\x05limit\x18\x02 \x01(\x05R\x05limit\"I\n" +
-	"\x11InventoryResponse\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x02 \x01(\tR\vdescription\"M\n" +
+	"\fEmptyRequest\"\x0f\n" +
+	"\rEmptyResponse\"Y\n" +
+	"\x11InventoryResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\"V\n" +
+	"\bMetaData\x12\"\n" +
+	"\ftotalRecords\x18\x01 \x01(\x03R\ftotalRecords\x12\x12\n" +
+	"\x04page\x18\x02 \x01(\x03R\x04page\x12\x12\n" +
+	"\x04size\x18\x03 \x01(\x03R\x04size\"M\n" +
 	"\x13FindRecordsResponse\x126\n" +
-	"\arecords\x18\x01 \x03(\v2\x1c.inventory.InventoryResponseR\arecords2a\n" +
-	"\x15InventoryProtoService\x12H\n" +
-	"\vfindRecords\x12\x17.inventory.EmptyRequest\x1a\x1e.inventory.FindRecordsResponse\"\x00B\n" +
+	"\arecords\x18\x01 \x03(\v2\x1c.inventory.InventoryResponseR\arecords\"w\n" +
+	"\x14GetInventoryResponse\x126\n" +
+	"\arecords\x18\x01 \x03(\v2\x1c.inventory.InventoryResponseR\arecords\x12'\n" +
+	"\x04meta\x18\x02 \x01(\v2\x13.inventory.MetaDataR\x04meta\"N\n" +
+	"\x16CreateInventoryRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\"S\n" +
+	"\x11PaginationRequest\x12\x16\n" +
+	"\x06search\x18\x01 \x01(\tR\x06search\x12\x12\n" +
+	"\x04page\x18\x02 \x01(\x03R\x04page\x12\x12\n" +
+	"\x04size\x18\x03 \x01(\x03R\x04size2\x82\x02\n" +
+	"\x15InventoryProtoService\x12F\n" +
+	"\vFindRecords\x12\x17.inventory.EmptyRequest\x1a\x1e.inventory.FindRecordsResponse\x12N\n" +
+	"\x0fCreateInventory\x12!.inventory.CreateInventoryRequest\x1a\x18.inventory.EmptyResponse\x12Q\n" +
+	"\x10GetInventoryList\x12\x1c.inventory.PaginationRequest\x1a\x1f.inventory.GetInventoryResponseB\n" +
 	"Z\b./pkg/pbb\x06proto3"
 
 var (
@@ -235,22 +466,32 @@ func file_pkg_pb_inventory_proto_rawDescGZIP() []byte {
 	return file_pkg_pb_inventory_proto_rawDescData
 }
 
-var file_pkg_pb_inventory_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_pkg_pb_inventory_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_pkg_pb_inventory_proto_goTypes = []any{
-	(*EmptyRequest)(nil),        // 0: inventory.EmptyRequest
-	(*FindRecordsRequest)(nil),  // 1: inventory.FindRecordsRequest
-	(*InventoryResponse)(nil),   // 2: inventory.InventoryResponse
-	(*FindRecordsResponse)(nil), // 3: inventory.FindRecordsResponse
+	(*EmptyRequest)(nil),           // 0: inventory.EmptyRequest
+	(*EmptyResponse)(nil),          // 1: inventory.EmptyResponse
+	(*InventoryResponse)(nil),      // 2: inventory.InventoryResponse
+	(*MetaData)(nil),               // 3: inventory.MetaData
+	(*FindRecordsResponse)(nil),    // 4: inventory.FindRecordsResponse
+	(*GetInventoryResponse)(nil),   // 5: inventory.GetInventoryResponse
+	(*CreateInventoryRequest)(nil), // 6: inventory.CreateInventoryRequest
+	(*PaginationRequest)(nil),      // 7: inventory.PaginationRequest
 }
 var file_pkg_pb_inventory_proto_depIdxs = []int32{
 	2, // 0: inventory.FindRecordsResponse.records:type_name -> inventory.InventoryResponse
-	0, // 1: inventory.InventoryProtoService.findRecords:input_type -> inventory.EmptyRequest
-	3, // 2: inventory.InventoryProtoService.findRecords:output_type -> inventory.FindRecordsResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	2, // 1: inventory.GetInventoryResponse.records:type_name -> inventory.InventoryResponse
+	3, // 2: inventory.GetInventoryResponse.meta:type_name -> inventory.MetaData
+	0, // 3: inventory.InventoryProtoService.FindRecords:input_type -> inventory.EmptyRequest
+	6, // 4: inventory.InventoryProtoService.CreateInventory:input_type -> inventory.CreateInventoryRequest
+	7, // 5: inventory.InventoryProtoService.GetInventoryList:input_type -> inventory.PaginationRequest
+	4, // 6: inventory.InventoryProtoService.FindRecords:output_type -> inventory.FindRecordsResponse
+	1, // 7: inventory.InventoryProtoService.CreateInventory:output_type -> inventory.EmptyResponse
+	5, // 8: inventory.InventoryProtoService.GetInventoryList:output_type -> inventory.GetInventoryResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_pkg_pb_inventory_proto_init() }
@@ -264,7 +505,7 @@ func file_pkg_pb_inventory_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pkg_pb_inventory_proto_rawDesc), len(file_pkg_pb_inventory_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
